@@ -1,23 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import { React,useState } from 'react';
+import store from './redux/store';
+import Posts from './Posts';
 
 function App() {
+  const [input,setInput] = useState(" ");
+  const changeState = (e) =>{
+    setInput(e.target.value);
+  };
+  const addInput = () => {
+  store.dispatch(
+    {
+      type:'ADD_TO_POSTS',
+      payload:{
+        post:input
+      }
+    }
+  )
+  
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+<header className='App-header'>App Header</header>
+<input type='text' onChange={changeState}/>
+<button onClick={addInput}>Add</button>
+<Posts/>
     </div>
   );
 }
